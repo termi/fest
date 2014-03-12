@@ -137,10 +137,15 @@ module.exports = function (grunt) {
     grunt.registerMultiTask('fest_build', 'Run fest-build', function () {
 
         var options = this.data,
-            done = this.async();
+            done = this.async(),
+            cmd = './bin/fest-build';
+
+        if( IS_WIN ) {
+            cmd = cmd + '.cmd';
+        }
 
         grunt.util.spawn({
-            cmd: './bin/fest-build',
+            cmd: cmd,
             args: options.args
         }, function (error, result) {
             if (error) {
@@ -155,6 +160,11 @@ module.exports = function (grunt) {
     });
 
     grunt.registerMultiTask('fest_compile', 'Run fest-compile', function () {
+        var cmd = './bin/fest-compile';
+
+        if( IS_WIN ) {
+            cmd = cmd + '.cmd';
+        }
 
         var fs = require('fs');
         var path = require('path');
@@ -194,7 +204,7 @@ module.exports = function (grunt) {
             compile_args.push(template_file);
 
             grunt.util.spawn({
-                cmd: './bin/fest-compile',
+                cmd: cmd,
                 args: compile_args
             }, function (error, result) {
                 if (file.indexOf('error') !== -1) {
