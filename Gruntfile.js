@@ -26,7 +26,8 @@ module.exports = function (grunt) {
                     '--dir=spec/templates',
                     '--exclude=*error*',
                     '--compile.beautify=true',
-                    '--out=spec/tmp/build/initial'
+                    '--out=spec/tmp/build/initial',
+                    '--features=string_templates'
                 ]
             },
             translated: {
@@ -35,7 +36,8 @@ module.exports = function (grunt) {
                     '--exclude=*error*',
                     '--compile.beautify=true',
                     '--out=spec/tmp/build/translated',
-                    '--translate=spec/templates/en_US.po'
+                    '--translate=spec/templates/en_US.po',
+                    '--features=string_templates'
                 ]
             }
         },
@@ -46,7 +48,8 @@ module.exports = function (grunt) {
                     'spec/templates',
                     'spec/tmp/compile/initial',
                     [
-                        '--compile.beautify=true'
+                        '--compile.beautify=true',
+                        '--features=string_templates'
                     ]
                 ]
             },
@@ -56,7 +59,8 @@ module.exports = function (grunt) {
                     'spec/tmp/compile/translated',
                     [
                         '--compile.beautify=true',
-                        '--translate=spec/templates/en_US.po'
+                        '--translate=spec/templates/en_US.po',
+                        '--features=string_templates'
                     ]
                 ]
             }
@@ -67,27 +71,31 @@ module.exports = function (grunt) {
                 specs: './spec',
                 compile: {
                     debug: true,
-                    beautify: true
+                    beautify: true,
+                    features: ["string_templates"]
                 }
             },
             mode_string: {
                 options: {
                     compile: {
-                        mode: 'string'
+                        mode: 'string',
+                        features: ["string_templates"]
                     }
                 }
             },
             mode_array: {
                 options: {
                     compile: {
-                        mode: 'array'
+                        mode: 'array',
+                        features: ["string_templates"]
                     }
                 }
             },
             mode_function: {
                 options: {
                     compile: {
-                        mode: 'function'
+                        mode: 'function',
+                        features: ["string_templates"]
                     }
                 }
             }

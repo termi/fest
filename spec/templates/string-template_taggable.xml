@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fest:template xmlns:fest="http://fest.mail.ru">
+<div>
+
+	<fest:var name="string">STRING</fest:var>
+	<fest:var name="template">TEMPLATE</fest:var>
+
+	<fest:script>
+	var rawQuasis = function(quasis) {
+		if(quasis.length === 0)return '';
+
+		var expressionValues = Array.prototype.slice.call(arguments, 1);
+		var raw = quasis.raw;
+
+		var s = '', i = 0, len = raw.length;
+		while (true) {
+			s += raw[i];
+			if (i + 1 === len) {
+				return s;
+			}
+			s += expressionValues[i++];
+		}
+	}
+	var doubleQuoters = function(quasis) {
+		if(quasis.length === 0)return '';
+
+		var expressionValues = Array.prototype.slice.call(arguments, 1);
+		var raw = quasis.raw;
+
+		expressionValues = expressionValues.map( function(x){ return '"' + x + '"'} );
+
+		var s = '', i = 0, len = raw.length;
+		while (true) {
+			s += raw[i];
+			if (i + 1 === len) {
+				return s;
+			}
+			s += expressionValues[i++];
+		}
+	}
+	var rawExpression = function(quasis) {
+		if(quasis.length === 0)return '';
+
+		var expressionValues = Array.prototype.slice.call(arguments, 1);
+
+		var s = '', i = 0, len = quasis.length;
+		while (true) {
+			s += quasis[i];
+			if (i + 1 === len) {
+				return s;
+			}
+			s += (expressionValues[i++]).replace(/\\/g, "\\\\");
+		}
+	}
+	</fest:script>
+	<fest:var name="value" value="some string" />
+
+	<fest:text> -- &gt; [ \0, \b, \r, \n, \v, \t, \u2222, \x22 ]</fest:text><fest:value> '\\0, \\b, \\r, \\n, \\v, \\t, \\u2222, \\x22'</fest:value>
+
+	<div>
+		This div contains taggable ${string} ${template}:
+
+		<fest:text tag='doubleQuoters'>tagged value is ${ 1 ? 'value' : '&amp;' }</fest:text>
+		<br />
+		<fest:text>this string contains special symbols [ &gt;, &lt;, \0, \b, \r, \n, \v, \t, \u2222, \x22 ] and expression ${ '&gt;, &lt;, \\0, \\b, \\r, \\n, \\v, \\t, \\u2222, \\x22' }</fest:text>
+		<br />
+		<fest:text tag='rawQuasis'>this string contains escaped special symbols [ &gt;, &lt;, \0, \b, \r, \n, \v, \t, \u2222, \x22 ] and expression ${ '&gt;, &lt;, \\0, \\b, \\r, \\n, \\v, \\t, \\u2222, \\x22' }</fest:text>
+		<br />
+		<fest:text tag='rawExpression'>this string contains special symbols: [ &gt;, &lt;, \0, \b, \r, \n, \v, \t, \u2222, \x22 ] and escaped expression ${ '&gt;, &lt;, \\0, \\b, \\r, \\n, \\v, \\t, \\u2222, \\x22' }</fest:text>
+		<br />
+		<fest:text tag='doubleQuoters'>
+			another tagged value in another fest:text
+			<fest:text>tagged value is ${ 1 ? 'value' : void 0 }</fest:text>
+
+			<fest:script>
+			var singleQuoters = function(quasis) {
+				if(quasis.length === 0)return '';
+
+				var expressionValues = Array.prototype.slice.call(arguments, 1);
+				var raw = quasis.raw;
+
+				expressionValues = expressionValues.map( function(x){ return '\'' + x + '\''} );
+
+				var s = '', i = 0, len = raw.length;
+				while (true) {
+					s += raw[i];
+					if (i + 1 === len) {
+						return s;
+					}
+					s += expressionValues[i++];
+				}
+			}
+			</fest:script>
+			inner fest:text with another 'tag':
+			<fest:text tag="singleQuoters">
+				tagged value is <b>${"text in single quoter's"}</b>
+			</fest:text>
+
+			this text <b>${"should be in double quoter's"}</b>
+		</fest:text>
+	</div>
+
+	<fest:script>
+	var htmlEscape = function(quasis) {
+		if(quasis.length === 0)return '';
+
+		var htmlchars=/[&amp;&lt;&gt;&quot;]/g;
+			var htmlhash = {
+			"&amp;": "&amp;amp;",
+			"&lt;": "&amp;lt;",
+			"&gt;": "&amp;gt;",
+			'&quot;': "&amp;quot;"
+		};
+
+		function escapeHTML(s){
+			return s.replace(htmlchars,function(chr){
+				return htmlhash[chr];
+			});
+		}
+
+		var expressionValues = Array.prototype.slice.call(arguments, 1);
+
+		var s = '', i = 0, len = quasis.length;
+		while (true) {
+			s += escapeHTML(quasis[i]);
+			if (i + 1 === len) {
+				return s;
+			}
+			s += expressionValues[i++];
+		}
+	}
+	</fest:script>
+
+	<fest:script>
+		var block = 'b-block';
+		var element = '__element';
+		var modifier = '_modifier';
+	</fest:script>
+
+	<fest:set name="modify">
+		<fest:value>params.block</fest:value>
+		<fest:value>params.element</fest:value>
+		<fest:value>modifier</fest:value>
+	</fest:set>
+
+	<fest:text tag="htmlEscape">
+		<pre>
+&lt;div class="${block}"
+	 data-amp="${'&amp;'}"
+	 data-lt="${'&lt;'}"
+	 data-gt="${'&gt;'}"
+	 data-apos="${'\&apos;'}"
+	 data-quot="${'\&quot;'}"
+	 data-elcb="${'{'}"
+	 data-ercb="${'}'}"
+	 data-lcb1="\$\{{"
+	 data-lcb2="$\{{"
+	 data-rcb="$}}"
+	 data-ecb="${'{}'}"
+	 data-escape="\${'1'}"&gt;
+	&lt;div class="${block}${modifier}" data-has-modifier="${!!(block && modifier)}"/&gt;
+	&lt;div class="${block + element}" data-obj-value="${ { 'key': 'value' }['key'] }" data-obj-json="{{ &quot;key&quot;: &quot;value&quot; }}"&gt;
+		&lt;span class="${'name'}" data-spec-chars="{{&lt;&quot;&apos;&amp;&gt;}}" data-espec-chars="${'{&lt;&quot;\&apos;&amp;&gt;}'}"&gt;
+			&lt;fest:get name="modify"&gt;{ "block": block, "element": element }&lt;/fest:get&gt;
+		&lt;/span&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;fest:for iterate="[1,2,3,4,5].filter(function(item){return item !== 3})" index="item" value="value"&gt;
+	&lt;fest:value&gt;value&lt;/fest:value&gt;
+&lt;/fest:for&gt;
+
+			<fest:script>
+				var a = 'A';
+				var b = 'B';
+			</fest:script>
+&lt;div data-lf="a&#x0A;&#x0D;b" data-backslash="\" data-apos="&apos;" data-quot="&quot;" data-block="${a}{" data-block-with-text="}a${b}{c}"&gt;&lt;/div&gt;
+		</pre>
+	</fest:text>
+
+</div>
+</fest:template>

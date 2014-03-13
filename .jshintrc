@@ -9,5 +9,6 @@
     "sub"    : true,
     "unused" : true,
     "curly"  : true,
+    "multistr"  : true,
     "indent" : 4
 }
