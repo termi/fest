@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fest:template xmlns:fest="http://fest.mail.ru" xmlns:i18n="http://i18n.fest.mail.ru" context_name="json">
+
+	<i18n:plural select="json.n">
+		<i18n:msg>Выбрана %s папка</i18n:msg><!-- msgid, msgstr[0]: Выбрана 1 папка, Выбрана 121 папка -->
+		<i18n:few>Выбраны %s папки</i18n:few><!-- msgid_plural, msgstr[1]: Выбраны 2 папки, Выбраны 54 папки -->
+		<i18n:many>Выбрано %s папок</i18n:many><!-- msgstr[2]: Выбрано 20 папок, Выбрано 38 папок -->
+		<i18n:none>Не выбрано ни одной папки</i18n:none><!-- msgstr[\=0]: -->
+		<i18n:one>Выбрана одна папка</i18n:one><!-- msgstr[\=1]: -->
+		<i18n:alt rule="=17">Выбрано семнадцать папок</i18n:alt><!-- msgstr[\=17]: -->
+	</i18n:plural>
+	|
+	<i18n:plural select="json.n">
+		<i18n:msg>Выбрана %s папка</i18n:msg><!-- msgid, msgstr[0]: Выбрана 1 папка, Выбрана 121 папка -->
+		<i18n:few>Выбраны %s папки</i18n:few><!-- msgid_plural, msgstr[1]: Выбраны 2 папки, Выбраны 54 папки -->
+		<i18n:many>Выбрано %s папок</i18n:many><!-- msgstr[2]: Выбрано 20 папок, Выбрано 38 папок -->
+	</i18n:plural>
+	<!--|-->
+	<!--<i18n:plural select="json.n">-->
+		<!--<i18n:msg>Выбрана %s ${'папка'}</i18n:msg>&lt;!&ndash; msgid, msgstr[0]: Выбрана 1 папка, Выбрана 121 папка &ndash;&gt;-->
+		<!--<i18n:few>Выбраны %s <fest:value>'папка'</fest:value></i18n:few>&lt;!&ndash; msgid_plural, msgstr[1]: Выбраны 2 папки, Выбраны 54 папки &ndash;&gt;-->
+		<!--<i18n:many>Выбрано %s папок</i18n:many>&lt;!&ndash; msgstr[2]: Выбрано 20 папок, Выбрано 38 папок &ndash;&gt;-->
+	<!--</i18n:plural>-->
+
+</fest:template>
