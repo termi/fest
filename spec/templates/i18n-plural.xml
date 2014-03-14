@@ -15,7 +15,7 @@
 		<i18n:few>Выбраны %s папки</i18n:few><!-- msgid_plural, msgstr[1]: Выбраны 2 папки, Выбраны 54 папки -->
 		<i18n:many>Выбрано %s папок</i18n:many><!-- msgstr[2]: Выбрано 20 папок, Выбрано 38 папок -->
 	</i18n:plural>
-	<!--|-->
+
 	<!--<i18n:plural select="json.n">-->
 		<!--<i18n:msg>Выбрана %s ${'папка'}</i18n:msg>&lt;!&ndash; msgid, msgstr[0]: Выбрана 1 папка, Выбрана 121 папка &ndash;&gt;-->
 		<!--<i18n:few>Выбраны %s <fest:value>'папка'</fest:value></i18n:few>&lt;!&ndash; msgid_plural, msgstr[1]: Выбраны 2 папки, Выбраны 54 папки &ndash;&gt;-->
