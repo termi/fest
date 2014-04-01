@@ -1,8 +1,8 @@
 {
-	"name": "fest",
+	"name": "fest-next",
 	"description": "JavaScript Templates",
 	"keywords": ["template", "templating", "html", "xml"],
-	"version": "0.8.2",
+	"version": "0.8.2-next",
 	"repository": {
 		"type": "git",
 		"url": "http://github.com/mailru/fest.git"
